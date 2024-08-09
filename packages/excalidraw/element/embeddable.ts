@@ -385,30 +385,5 @@ export const embeddableURLValidator = (
   if (!url) {
     return false;
   }
-  if (validateEmbeddable != null) {
-    if (typeof validateEmbeddable === "function") {
-      const ret = validateEmbeddable(url);
-      // if return value is undefined, leave validation to default
-      if (typeof ret === "boolean") {
-        return ret;
-      }
-    } else if (typeof validateEmbeddable === "boolean") {
-      return validateEmbeddable;
-    } else if (validateEmbeddable instanceof RegExp) {
-      return validateEmbeddable.test(url);
-    } else if (Array.isArray(validateEmbeddable)) {
-      for (const domain of validateEmbeddable) {
-        if (domain instanceof RegExp) {
-          if (url.match(domain)) {
-            return true;
-          }
-        } else if (matchHostname(url, domain)) {
-          return true;
-        }
-      }
-      return false;
-    }
-  }
-
-  return !!matchHostname(url, ALLOWED_DOMAINS);
+  return true;
 };
